@@ -23,6 +23,7 @@ module CabifyChallenge
     #
     # @param product_name [String]
     def scan(product_name)
+      raise ArgumentError.new("No price for '#{product_name}'") unless has_price_for?(product_name)
       # Thanks to the default value of the cart hash, we just have to increment it.
       @cart[product_name] += 1
     end
@@ -35,6 +36,12 @@ module CabifyChallenge
         rule = @pricing_rules[product_name]
         accum + rule.calculate(units)
       end
+    end
+
+    private
+
+    def has_price_for?(product_name)
+      @pricing_rules.key?(product_name)
     end
   end
 end

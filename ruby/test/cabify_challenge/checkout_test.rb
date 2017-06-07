@@ -37,5 +37,17 @@ module CabifyChallenge
       end
       assert_equal 74.50, co.total
     end
+
+    def test_checkout_if_none_scanned
+      co = Checkout.new
+      assert_equal 0, co.total
+    end
+
+    def test_checkout_if_some_product_price_is_not_listed
+      co = Checkout.new
+      assert_raises(ArgumentError) do
+        co.scan("PATATAS")
+      end
+    end
   end
 end
