@@ -79,14 +79,14 @@ the pricing classes to support that.
 
 ## Performance
 
-The `Checkout` class has the following [Big O][3] performance:
+The `Checkout` class has the following Big O performance:
 
 * `Scan`: O(1) assuming insertions in Go maps are constant.
 * `Total`: O(n) assuming traversal of Go maps are linear. If required,
 this could be reduced to O(1) by just accumulating the current total amount
 of the cart when products are added in `Scan()`.
 
-## Other consideratings
+## Other considerations
 
 * The gorutine under `Checkout` never ends. If necessary, we could provide
 an additional channel to request the goroutine to terminate.
