@@ -13,4 +13,6 @@ and channels.
 * An [implementation using Scala](scala/). Using OOP mixed
 with an actor model to provide thread-safety.
 
+* An [implementation using Rust](rust/). Using typeclasses as interpreted
+by Rust and using again a MPSC channel communication provide thread-safety.
 
