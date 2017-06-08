@@ -1,4 +1,4 @@
-# Cabify Code Challenge - Ruby
+# Cabify Code Challenge - Go
 
 This is a implementation of the Cabify Code Challenge [you may find here][1]
 for the Go programming language.
