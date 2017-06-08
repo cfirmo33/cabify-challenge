@@ -4,9 +4,9 @@ type PricingRules map[string]PriceCalculator
 
 func DefaultPrices() PricingRules {
   return PricingRules {
-    "VOUCHER": GetTwoPayOnePrice { pricePerUnit: 5.00 },
-    "TSHIRT": BulkDiscountPrice { pricePerUnit: 20.00, discountPricePerUnit: 19.00, bulkMinUnits: 3 },
-    "MUG": DefaultPrice { pricePerUnit: 7.50 },
+    "VOUCHER": GetTwoPayOnePrice { PricePerUnit: 5.00 },
+    "TSHIRT": BulkDiscountPrice { PricePerUnit: 20.00, DiscountPricePerUnit: 19.00, BulkMinUnits: 3 },
+    "MUG": DefaultPrice { PricePerUnit: 7.50 },
   }
 }
 

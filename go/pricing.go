@@ -7,34 +7,34 @@ type PriceCalculator interface {
 
 // A price policy that applies no discount at all.
 type DefaultPrice struct {
-  pricePerUnit float64
+  PricePerUnit float64
 }
 
 func (p DefaultPrice) Calculate(units int) float64 {
-  return p.pricePerUnit * float64(units)
+  return p.PricePerUnit * float64(units)
 }
 
 // A price policy that applies a discount of 2-for-1.
 type GetTwoPayOnePrice struct {
-  pricePerUnit float64
+  PricePerUnit float64
 }
 
 func (p GetTwoPayOnePrice) Calculate(units int) float64 {
   n := units - (units / 2)
-  return p.pricePerUnit * float64(n)
+  return p.PricePerUnit * float64(n)
 }
 
 // A price policy that applies a discount for bulk purchases.
 type BulkDiscountPrice struct {
-  pricePerUnit float64
-  discountPricePerUnit float64
-  bulkMinUnits int
+  PricePerUnit float64
+  DiscountPricePerUnit float64
+  BulkMinUnits int
 }
 
 func (p BulkDiscountPrice) Calculate(units int) float64 {
-  if units < p.bulkMinUnits {
-    return p.pricePerUnit * float64(units)
+  if units < p.BulkMinUnits {
+    return p.PricePerUnit * float64(units)
   } else {
-    return p.discountPricePerUnit * float64(units)
+    return p.DiscountPricePerUnit * float64(units)
   }
 }
