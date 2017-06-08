@@ -1,13 +1,13 @@
 
 // A trait to define the typeclasses implementing a pricing
 // functionality
-pub trait Pricing {
+pub trait Pricing : Send {
     fn calculate(&self, units: u32) -> f32;
 }
 
 // A pricing policy for no discount
 pub struct DefaultPrice {
-    price_per_units: f32
+    pub price_per_units: f32
 }
 
 impl Pricing for DefaultPrice {
@@ -18,7 +18,7 @@ impl Pricing for DefaultPrice {
 
 // A pricing policy get two and pay one discount.
 pub struct GetTwoPayOne {
-    price_per_units: f32
+    pub price_per_units: f32
 }
 
 impl Pricing for GetTwoPayOne {
@@ -28,9 +28,9 @@ impl Pricing for GetTwoPayOne {
 }
 // A pricing policy bulk discount
 pub struct BulkDiscount {
-    price_per_units: f32,
-    discount_price_per_units: f32,
-    min_bulk_units: u32,
+    pub price_per_units: f32,
+    pub discount_price_per_units: f32,
+    pub min_bulk_units: u32,
 }
 
 impl Pricing for BulkDiscount {
