@@ -3,14 +3,14 @@
 In this repository you will find some code in response to the Cabify
 Code Challenge.
  
-* An [implementation using Ruby](ruby/README.md). This is the classical
+* An [implementation using Ruby](ruby/). This is the classical
 approach using OOP through Duck Typing in a dynamically typed language.
 
-* An [implementation using Go](go/README.md). Using structural typing
+* An [implementation using Go](go/). Using structural typing
 implemented with Go interfaces and some thread-safety using goroutines
 and channels.
 
-* An [implementation using Scala](scala/README.md). Using OOP mixed
+* An [implementation using Scala](scala/). Using OOP mixed
 with an actor model to provide thread-safety.
 
 
