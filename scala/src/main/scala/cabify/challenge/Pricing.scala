@@ -6,6 +6,16 @@ trait Pricing {
 
 object Pricing {
 
+  type Rules = Map[String, Pricing]
+
+  val DefaultRules = Map(
+    "VOUCHER" -> GetTwoPayOne(pricePerUnit = 5.00),
+    "TSHIRT" -> BulkDiscount(pricePerUnit = 20.00,
+                             discountPricePerUnit = 19.00,
+                             minBulkUnits = 3),
+    "MUG" -> Default(pricePerUnit = 7.50)
+  )
+
   case class Default(pricePerUnit: Double) extends Pricing {
     override def calculate(amount: Int): Double = amount * pricePerUnit
   }
