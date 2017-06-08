@@ -10,4 +10,7 @@ approach using OOP through Duck Typing in a dynamically typed language.
 implemented with Go interfaces and some thread-safety using goroutines
 and channels.
 
+* An [implementation using Scala](scala/README.md). Using OOP mixed
+with an actor model to provide thread-safety.
+
 
