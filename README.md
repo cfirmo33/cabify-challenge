@@ -10,6 +10,9 @@ approach using OOP through Duck Typing in a dynamically typed language.
 implemented with Go interfaces and some thread-safety using goroutines
 and channels.
 
+* An [implementation using Elixir](elixir/). Using a pure functional approach
+combined with protocols to have some polymorphism.
+
 * An [implementation using Scala](scala/). Using OOP mixed
 with an actor model to provide thread-safety.
 
