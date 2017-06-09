@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-
 require 'cabify_challenge'
 
 module CabifyChallenge

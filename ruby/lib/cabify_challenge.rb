@@ -1,2 +1,4 @@
-require 'cabify_challenge/pricing'
-require 'cabify_challenge/checkout'
+module CabifyChallenge
+  require 'cabify_challenge/pricing'
+  require 'cabify_challenge/checkout'
+end
