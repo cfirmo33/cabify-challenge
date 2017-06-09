@@ -9,7 +9,7 @@ the document and the code.
 ## Disclaimer
 
 Last time I wrote Go code was in ~2012. And it was just a little prototype I
-never ended because Go runtime didn't met the requirements (I needed to embed
+never ended because Go runtime didn't meet the requirements (I needed to embed
 it in a C++ process as a DLL plugin, and that was not possible at that time).
 So, I have almost no experience in the language. Fortunately, Go is so simple
 and the concepts behind it ([corutines][2], [CSP][4], [structural typing][3])
@@ -26,7 +26,7 @@ execute the tests with `go test`.
 ## Solution and design
 
 The proposed challenge was clearly focused on showing how the concurrency
-primitives of Go can be used, particularly gorutines and channels. This
+primitives of Go can be used, particularly goroutines and channels. This
 solution is based on modelling the different pricing policies defined in
 the `pricing.go` source file. First, a common interface `PriceCalculator`
 is defined to handle the price policies polymorphically. After that, a set
@@ -56,12 +56,12 @@ accordingly.
 ## Design motivation
 
 The initial naive approach would be to implement the `Checkout` type without
-the presence of the pricing classes. Perhaps introducing these rules as
-conditional statements while calculating the total amount. Nevertheless, this
-wouldn't be a clever solution because adding new discount forms would be a
-pain in the ass. We might end with dozens of conditional statements in the
-type, a very illegible code with a huge cyclomatic complexituy and really
-hard to test it separated.
+the presence of the types declared in `pricing.go`. Perhaps introducing these
+rules as conditional statements while calculating the total amount.
+Nevertheless, this wouldn't be a clever solution because adding new discount
+forms would be a pain in the ass. We might end with dozens of conditional
+statements in the type, a very illegible code with a huge cyclomatic
+complexity and really hard to test it separated.
 
 In constrast, the proposed solution allow us to add more pricing classes
 to represent new forms of calculating the cost of a product.
@@ -90,7 +90,7 @@ of the cart when products are added in `Scan()`.
 
 * The gorutine under `Checkout` never ends. If necessary, we could provide
 an additional channel to request the goroutine to terminate.
-* The package structure could be lightly inconventional. As disclaimed
+* The package structure could be lightly unconventional. As disclaimed
 above, I'm not a Go expert at all.
 
 
