@@ -1,10 +1,9 @@
-require 'minitest/unit'
 require 'minitest/autorun'
 
 require 'cabify_challenge'
 
 module CabifyChallenge
-  class CheckoutTest < Minitest::Unit::TestCase
+  class CheckoutTest < Minitest::Test
 
     def test_checkout_scenary_1
       co = Checkout.new

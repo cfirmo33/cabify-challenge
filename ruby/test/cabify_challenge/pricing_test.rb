@@ -1,10 +1,9 @@
-require 'minitest/unit'
 require 'minitest/autorun'
 
 require 'cabify_challenge'
 
 module CabifyChallenge
-  class PricingTest < Minitest::Unit::TestCase
+  class PricingTest < Minitest::Test
 
     def test_default_price
       price = Pricing::DefaultPrice.new(1.95)
