@@ -12,7 +12,7 @@ the document and the code.
 I've never coded in Elixir until now. I just received once a basic
 introduction  to the language. This solution to the exercise is the result to
 learn Elixir basics by reading the language guide. Fortunatelly, the concepts
-behind it (functional programming, protocols, high order, etc) are so familiar
+behind it (functional programming, protocols, higher order, etc) are so familiar
 to me that I could complete the challenge in less than I had estimated. But...
 do not expect perfect code here.
 
