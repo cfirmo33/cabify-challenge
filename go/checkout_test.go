@@ -5,7 +5,12 @@ import (
 	"testing"
 )
 
-func TestScenario1(t *testing.T) {
+func TestEmptyCheckout(t *testing.T) {
+	co := NewCheckout(DefaultPrices())
+	assert.Equal(t, 0.00, co.Total())
+}
+
+func TestNoDiscountAppliedToAny(t *testing.T) {
 	co := NewCheckout(DefaultPrices())
 	co.Scan("VOUCHER")
 	co.Scan("TSHIRT")
@@ -13,7 +18,7 @@ func TestScenario1(t *testing.T) {
 	assert.Equal(t, 32.50, co.Total())
 }
 
-func TestScenario2(t *testing.T) {
+func TestGetTwoPayOneDiscountApplied(t *testing.T) {
 	co := NewCheckout(DefaultPrices())
 	co.Scan("VOUCHER")
 	co.Scan("TSHIRT")
@@ -21,7 +26,7 @@ func TestScenario2(t *testing.T) {
 	assert.Equal(t, 25.00, co.Total())
 }
 
-func TestScenario3(t *testing.T) {
+func TestBulkDiscountApplied(t *testing.T) {
 	co := NewCheckout(DefaultPrices())
 	co.Scan("TSHIRT")
 	co.Scan("TSHIRT")
@@ -31,7 +36,7 @@ func TestScenario3(t *testing.T) {
 	assert.Equal(t, 81.00, co.Total())
 }
 
-func TestScenario4(t *testing.T) {
+func TestMultipleDiscountsApplied(t *testing.T) {
 	co := NewCheckout(DefaultPrices())
 	co.Scan("VOUCHER")
 	co.Scan("TSHIRT")
