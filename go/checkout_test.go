@@ -6,12 +6,12 @@ import (
 )
 
 func TestEmptyCheckout(t *testing.T) {
-	co := NewCheckout(DefaultPrices())
+	co := NewCheckout(DefaultCatalog())
 	assert.Equal(t, 0.00, co.Total())
 }
 
 func TestNoDiscountAppliedToAny(t *testing.T) {
-	co := NewCheckout(DefaultPrices())
+	co := NewCheckout(DefaultCatalog())
 	co.Scan("VOUCHER")
 	co.Scan("TSHIRT")
 	co.Scan("MUG")
@@ -19,7 +19,7 @@ func TestNoDiscountAppliedToAny(t *testing.T) {
 }
 
 func TestGetTwoPayOneDiscountApplied(t *testing.T) {
-	co := NewCheckout(DefaultPrices())
+	co := NewCheckout(DefaultCatalog())
 	co.Scan("VOUCHER")
 	co.Scan("TSHIRT")
 	co.Scan("VOUCHER")
@@ -27,7 +27,7 @@ func TestGetTwoPayOneDiscountApplied(t *testing.T) {
 }
 
 func TestBulkDiscountApplied(t *testing.T) {
-	co := NewCheckout(DefaultPrices())
+	co := NewCheckout(DefaultCatalog())
 	co.Scan("TSHIRT")
 	co.Scan("TSHIRT")
 	co.Scan("TSHIRT")
@@ -37,7 +37,7 @@ func TestBulkDiscountApplied(t *testing.T) {
 }
 
 func TestMultipleDiscountsApplied(t *testing.T) {
-	co := NewCheckout(DefaultPrices())
+	co := NewCheckout(DefaultCatalog())
 	co.Scan("VOUCHER")
 	co.Scan("TSHIRT")
 	co.Scan("VOUCHER")

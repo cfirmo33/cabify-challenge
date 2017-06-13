@@ -1,22 +1,11 @@
 package cabify_challenge
 
-type PricingRules map[string]PriceCalculator
-
-func DefaultPrices() PricingRules {
-	return PricingRules{
-		"VOUCHER": GetTwoPayOnePrice{PricePerUnit: 5.00},
-		"TSHIRT":  BulkDiscountPrice{PricePerUnit: 20.00, DiscountPricePerUnit: 19.00, BulkMinUnits: 3},
-		"MUG":     DefaultPrice{PricePerUnit: 7.50},
-	}
-}
-
 type Checkout struct {
-	prices    PricingRules
 	scanChan  chan string
 	totalChan chan chan float64
 }
 
-func CheckoutProcess(prices PricingRules,
+func CheckoutProcess(cat *Catalog,
 	scanChan chan string,
 	totalChan chan chan float64) {
 	cart := make(map[string]int)
@@ -32,19 +21,19 @@ func CheckoutProcess(prices PricingRules,
 		case t := <-totalChan:
 			var total = 0.0
 			for k, v := range cart {
-				total += prices[k].Calculate(v)
+				prod, _ := cat.GetProduct(k)
+				total += prod.CalculatePrice(v)
 			}
 			t <- total
 		}
 	}
 }
 
-func NewCheckout(prices PricingRules) *Checkout {
+func NewCheckout(cat *Catalog) *Checkout {
 	co := new(Checkout)
-	co.prices = prices
 	co.scanChan = make(chan string)
 	co.totalChan = make(chan chan float64)
-	go CheckoutProcess(prices, co.scanChan, co.totalChan)
+	go CheckoutProcess(cat, co.scanChan, co.totalChan)
 	return co
 }
 
