@@ -4,4 +4,5 @@ Gem::Specification.new do |s|
   s.version     = '0.1.0'
   s.authors     = ["Clark Kent"]
   s.files       = Dir["lib/**/*.rb"]
+  s.files       += Dir["lib/resources/**/*"]
 end

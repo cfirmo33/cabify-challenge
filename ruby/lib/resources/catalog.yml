@@ -1,0 +1,15 @@
+- :code: VOUCHER
+  :description: "Cabify Voucher"
+  :price: 5.00
+  :discount: 2x1
+
+- :code: TSHIRT
+  :description: "Cabify T-Shirt"
+  :price: 20.00
+  :discount: bulk
+  :bulk_price: 19.00
+  :bulk_units: 3
+
+- :code: MUG
+  :description: "Cafify Coffee Mug"
+  :price: 7.50
