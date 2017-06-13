@@ -39,6 +39,15 @@ func TestAddProductsToCatalogOverwriteExisting(t *testing.T) {
 	assert.Equal(t, prod2, *rep)
 }
 
+func TestContainsProduct(t *testing.T) {
+	prod := Product{"XX", "description", DefaultPrice{PricePerUnit: 1.00}}
+	cat := NewCatalog()
+	cat.AddProduct(prod)
+
+	assert.True(t, cat.ContainsProduct("XX"))
+	assert.False(t, cat.ContainsProduct("YY"))
+}
+
 func TestGetProductFailsIfNotPresent(t *testing.T) {
 	cat := NewCatalog()
 	_, err := cat.GetProduct("XX")
@@ -50,4 +59,3 @@ func TestDefaultCatalogIsNotEmpty(t *testing.T) {
 
 	assert.False(t, cat.IsEmpty())
 }
-

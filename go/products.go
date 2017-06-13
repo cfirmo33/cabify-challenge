@@ -28,8 +28,15 @@ func NewCatalog() *Catalog {
 	return cat
 }
 
+// Check whether the catalog is empty
 func (c Catalog) IsEmpty() bool {
 	return len(c.Content) == 0
+}
+
+// Check if there is a product with the given code
+func (c Catalog) ContainsProduct(code string) bool {
+	_, found := c.Content[code]
+	return found
 }
 
 // Add a new element to the catalog

@@ -10,6 +10,12 @@ func TestEmptyCheckout(t *testing.T) {
 	assert.Equal(t, 0.00, co.Total())
 }
 
+func TestFailedScanningUnknownProducts(t *testing.T) {
+	co := NewCheckout(DefaultCatalog())
+	err := co.Scan("NAZGUL")
+	assert.EqualError(t, err, "cannot scan unknown product with code NAZGUL")
+}
+
 func TestNoDiscountAppliedToAny(t *testing.T) {
 	co := NewCheckout(DefaultCatalog())
 	co.Scan("VOUCHER")
