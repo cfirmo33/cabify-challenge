@@ -7,7 +7,7 @@ import (
 
 func TestEmptyCheckout(t *testing.T) {
 	co := NewCheckout(DefaultCatalog())
-	assert.Equal(t, 0.00, co.Total())
+	assert.Equal(t, 0.00, co.GetTotal())
 }
 
 func TestFailedScanningUnknownProducts(t *testing.T) {
@@ -21,7 +21,7 @@ func TestNoDiscountAppliedToAny(t *testing.T) {
 	co.Scan("VOUCHER")
 	co.Scan("TSHIRT")
 	co.Scan("MUG")
-	assert.Equal(t, 32.50, co.Total())
+	assert.Equal(t, 32.50, co.GetTotal())
 }
 
 func TestGetTwoPayOneDiscountApplied(t *testing.T) {
@@ -29,7 +29,7 @@ func TestGetTwoPayOneDiscountApplied(t *testing.T) {
 	co.Scan("VOUCHER")
 	co.Scan("TSHIRT")
 	co.Scan("VOUCHER")
-	assert.Equal(t, 25.00, co.Total())
+	assert.Equal(t, 25.00, co.GetTotal())
 }
 
 func TestBulkDiscountApplied(t *testing.T) {
@@ -39,7 +39,7 @@ func TestBulkDiscountApplied(t *testing.T) {
 	co.Scan("TSHIRT")
 	co.Scan("VOUCHER")
 	co.Scan("TSHIRT")
-	assert.Equal(t, 81.00, co.Total())
+	assert.Equal(t, 81.00, co.GetTotal())
 }
 
 func TestMultipleDiscountsApplied(t *testing.T) {
@@ -51,5 +51,5 @@ func TestMultipleDiscountsApplied(t *testing.T) {
 	co.Scan("MUG")
 	co.Scan("TSHIRT")
 	co.Scan("TSHIRT")
-	assert.Equal(t, 74.50, co.Total())
+	assert.Equal(t, 74.50, co.GetTotal())
 }

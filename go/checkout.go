@@ -23,28 +23,38 @@ func CheckoutProcess(cat *Catalog,
 	for {
 		select {
 		case scan := <-scanChan:
-			code := scan.ProductCode
-			if cat.ContainsProduct(code) {
-				count, present := cart[code]
-				if present {
-					cart[code] = count + 1
-				} else {
-					cart[code] = 1
-				}
-				scan.Rep <- nil
-			} else {
-				scan.Rep <- fmt.Errorf(
-					"cannot scan unknown product with code %s", code)
-			}
+			HandleScanRequest(cart, cat, scan)
 		case total := <-totalChan:
-			var result = 0.0
-			for k, v := range cart {
-				prod, _ := cat.GetProduct(k)
-				result += prod.CalculatePrice(v)
-			}
-			total.Rep <- result
+			HandleGetTotalRequest(cart, cat, total)
 		}
 	}
+}
+
+func HandleScanRequest(cart map[string]int, cat *Catalog, req ScanReq) {
+	code := req.ProductCode
+	if cat.ContainsProduct(code) {
+		count, present := cart[code]
+		if present {
+			cart[code] = count + 1
+		} else {
+			cart[code] = 1
+		}
+		req.Rep <- nil
+	} else {
+		req.Rep <- fmt.Errorf(
+			"cannot scan unknown product with code %s", code)
+	}
+}
+
+func HandleGetTotalRequest(cart map[string]int, cat *Catalog, req GetTotalReq) {
+	var result = 0.0
+	for k, v := range cart {
+		// Here we can safely ignore the error since `scan()` operation
+		// already ensures the product exists in the catalog
+		prod, _ := cat.GetProduct(k)
+		result += prod.CalculatePrice(v)
+	}
+	req.Rep <- result
 }
 
 func NewCheckout(cat *Catalog) *Checkout {
@@ -61,7 +71,7 @@ func (co Checkout) Scan(productCode string) error {
 	return <-req.Rep
 }
 
-func (co Checkout) Total() float64 {
+func (co Checkout) GetTotal() float64 {
 	req := GetTotalReq{make(chan float64)}
 	co.totalChan <- req
 	return <-req.Rep
