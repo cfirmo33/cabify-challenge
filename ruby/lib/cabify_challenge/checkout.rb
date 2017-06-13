@@ -1,18 +1,11 @@
 module CabifyChallenge
   class Checkout
 
-    DEFAULT_PRICING_RULES = {
-      "VOUCHER" => Pricing::GetTwoPayOnePrice.new(5.00),
-      "TSHIRT"  => Pricing::BulkDiscountPrice.new(20.00, 19.00, 3),
-      "MUG"     => Pricing::DefaultPrice.new(7.50)
-    }.freeze
-
-    # Create a new checkout with the given pricing rules.
+    # Create a new checkout with the given product catalog
     #
-    # @param pricing_rules [Hash<String, #calculate>] The pricing rules defining a price for each
-    #   product; the price would be one of those declared in `Pricing` module
-    def initialize(pricing_rules = DEFAULT_PRICING_RULES)
-      @pricing_rules = pricing_rules
+    # @param product_catalog [ProductCatalog]
+    def initialize(product_catalog = ProductCatalog.default)
+      @product_catalog = product_catalog
 
       # This cart maintains a relation of product names and the number of units scanned.
       # It is defaulted to 0 to facilitate the scan of products
@@ -33,15 +26,15 @@ module CabifyChallenge
     # @return [Float]
     def total
       @cart.inject(0) do |accum, (product_name, units)|
-        rule = @pricing_rules[product_name]
-        accum + rule.calculate(units)
+        product = @product_catalog.find(product_name)
+        accum + product.calculate_price(units)
       end
     end
 
     private
 
     def has_price_for?(product_name)
-      @pricing_rules.key?(product_name)
+      @product_catalog.includes?(product_name)
     end
   end
 end
