@@ -40,15 +40,24 @@ approach: each item has a fixed cost.
 Each type is instantiated with the necessary information to apply the price
 to an amount of product units and calculate the applied price.
 
+In addition to the prices, the products have been modelled in the
+`products.go` source file. Here the `Product` and `Catalog` structs model
+the products, including the price applied to them, and the catalog of
+products, respectivelly. A default catalog is provided in that file via
+`DefaultCatalog()` function.
+
 Appart from that, the `Checkout` type in `checkout.go` represents the checkout 
 process according to the definition in the Challenge. Since the challenge says 
 it is mandatory to make it thread-safe, under the hoods it uses a gorutine and
 some channels to communicate with the client code that requests `Scan()` and
-`Total()` operations. Two channels are used:
-* A `chan string` to submit scan actions
-* A `chan chan float64` to request total calculation. The inner channel passed
-to the outer channel is used to receive a response from the gorutine with the
-computed result.
+`GetTotal()` operations. Two channels are used:
+
+* A `chan ScanReq` to submit scan actions. It contains the product name and
+the response channel to indicate if there was an error (i.e., the product
+name doesn't exist).
+* A `chan GetTotalReq` to request total computation. It contains just the reply
+channel used to return the computed total (yes, the struct just wraps a single
+value, but it does so for consistency with `ScanReq`).
 
 The gorutine selects events from both channels and manages the requests 
 accordingly.

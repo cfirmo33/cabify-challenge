@@ -72,7 +72,7 @@ func DefaultCatalog() *Catalog {
 	})
 	cat.AddProduct(Product{
 		"MUG",
-		"Cafify Coffee Mug",
+		"Cabify Coffee Mug",
 		DefaultPrice{PricePerUnit: 7.50},
 	})
 	return cat
